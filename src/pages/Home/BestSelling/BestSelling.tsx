@@ -1,13 +1,14 @@
 
-import useProducts from "../../../hooks/useProducts";
 import Title from "../../../utils/Title";
 import { Product } from "../../../types/Types";
 import { Link } from "react-router-dom";
 import BestProduct from "./BestProduct";
+import { useGetProductsQuery } from "../../../redux/api/api";
 
 const BestSelling: React.FC = () => {
-  const { products } = useProducts();
-  const slices = products?.slice(1, 7
+  const {data:products} = useGetProductsQuery()
+
+  const slices = products?.data?.slice(1, 7
   ); 
   console.log(slices);
 

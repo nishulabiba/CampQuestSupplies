@@ -13,7 +13,7 @@ const Testimonials = () => {
    <Title heading="Client's FeedBack" subHeading="Here are the reviews"/>
     <div className="bg-[#153339] rounded-t-3xl md:h-[737px] md:mt-5 ">
       <div className="flex flex-col md:w-[145vh] gap-10 md:pt-20 mx-auto items-center ">
-        <h1 className="text-6xl font-bold text-[#E2EFF2]">Clients FeedBack</h1>
+        <h1 className="text-4xl font-bold text-[#E2EFF2]">------- Checkout our client's thought ------</h1>
         <div>
           <p className="text-sm">
             We have{" "}

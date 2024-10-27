@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useProducts from "../../hooks/useProducts";
 import { Product } from "../../types/Types";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -8,15 +7,16 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
 import { Helmet } from "react-helmet-async";
-import { ListBulletIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useGetProductsQuery } from "../../redux/api/api";
 
 const Management = () => {
   const [filterCategory, setFilterCategory] = useState("");
-  const { products, isLoading } = useProducts();
-  const navigate = useNavigate()
-  const filteredItems = products?.filter(
+  const { data: products, isLoading } = useGetProductsQuery();
+  const navigate = useNavigate();
+  const filteredItems = products?.data?.filter(
     (item: Product) => item.category === filterCategory
   );
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -24,34 +24,32 @@ const Management = () => {
   const handleDropdownToggle = (productId: string) => {
     setActiveDropdown(activeDropdown === productId ? null : productId);
   };
-  const handleDelete = async(i: string) => {
+  const handleDelete = async (i: string) => {
     Swal.fire({
-        title: `Are yo sure?`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#ff0000",
-        cancelButtonColor: "#D1A054",
-        confirmButtonText: "Delete"
-    })
-        .then(async(result) => {
-            if (result.isConfirmed) {
-                const res = await axios.delete(`https://campershop.vercel.app/api/products/${i}`)
-                console.log(res?.data)
-                
-                if (res?.data.success) {
-                    navigate("/")
-                  Swal.fire({
-                    icon: "success",
-                    titleText: "You have Deleted an item successfully!",
-                    timer: 800,
-                    showConfirmButton: false,
-                  });
-                  
-                }
-            }
-        });
+      title: `Are yo sure?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff0000",
+      cancelButtonColor: "#D1A054",
+      confirmButtonText: "Delete",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axios.delete(
+          `https://campershop.vercel.app/api/products/${i}`
+        );
+        console.log(res?.data);
 
-    
+        if (res?.data.success) {
+          navigate("/");
+          Swal.fire({
+            icon: "success",
+            titleText: "You have Deleted an item successfully!",
+            timer: 800,
+            showConfirmButton: false,
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -65,7 +63,7 @@ const Management = () => {
             </h1>
           ) : (
             <h1 className="text-2xl font-bold">
-              Total Products: {products?.length}{" "}
+              Total Products: {products?.data?.length}{" "}
             </h1>
           )}
           <br />
@@ -98,6 +96,9 @@ const Management = () => {
                 <th className="text-start">Name</th>
                 <th className="text-start">Category</th>
                 <th className="text-center">Actions</th>
+                <th className=" inline-flex gap-2" onClick={() => navigate(`/add`)}>Add
+                  <PlusCircleIcon className="w-6 text-slate-500"/> 
+                  </th>
               </tr>
             </thead>
             {isLoading ? (
@@ -108,7 +109,7 @@ const Management = () => {
                   ? filteredItems?.map((item: Product, index: number) => (
                       <tr key={item._id}>
                         <td className="text-center">{index + 1}</td>
-                        <td className="text-center">
+                        <td className="text-center" onClick={() => navigate(`/product/${item._id}`)}>
                           <img
                             style={{ borderRadius: "0 200px 200px 300px" }}
                             className="w-[100px]"
@@ -116,10 +117,10 @@ const Management = () => {
                             alt=""
                           />
                         </td>
-                        <td className="text-start">
+                        <td className="text-start" onClick={() => navigate(`/product/${item._id}`)}>
                           <p>{item.name}</p>
                         </td>
-                        <td className="text-start">
+                        <td className="text-start" onClick={() => navigate(`/product/${item._id}`)}>
                           <p>{item.category}</p>
                         </td>
                         <td className="text-center relative">
@@ -153,10 +154,10 @@ const Management = () => {
                         </td>
                       </tr>
                     ))
-                  : products?.map((item: Product, index: number) => (
+                  : products?.data?.map((item: Product, index: number) => (
                       <tr key={item._id}>
                         <td className="text-center">{index + 1}</td>
-                        <td className="text-center">
+                        <td className="text-center" onClick={() => navigate(`/product/${item._id}`)}>
                           <img
                             style={{ borderRadius: "0 200px 200px 300px" }}
                             className="w-[100px]"
@@ -164,10 +165,10 @@ const Management = () => {
                             alt=""
                           />
                         </td>
-                        <td className="text-start">
+                        <td className="text-start" onClick={() => navigate(`/product/${item._id}`)}>
                           <p>{item.name}</p>
                         </td>
-                        <td className="text-start">
+                        <td className="text-start" onClick={() => navigate(`/product/${item._id}`)}>
                           <p>{item.category}</p>
                         </td>
                         <td className="text-center relative">
@@ -178,12 +179,12 @@ const Management = () => {
                           </button>
                           {activeDropdown === item._id && (
                             <div className="absolute top-0 right-0 mt-6 w-32 bg-white border rounded shadow-md">
-                              <Link
-                                to={`/add`}
+                              <div
+                                onClick={() => navigate(`/product/${item._id}`)}
                                 className="flex items-center px-4 py-2 hover:bg-gray-200"
                               >
-                                <PlusCircleIcon className="w-5 mr-2" /> Add
-                              </Link>
+                                <EyeIcon className="w-5 mr-2" /> View
+                              </div>
                               <Link
                                 to={`/update/${item._id}`}
                                 className="flex items-center px-4 py-2 hover:bg-gray-200"

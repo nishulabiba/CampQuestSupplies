@@ -4,8 +4,10 @@ import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { Product } from "../../types/Types";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   const {
     reset,
     register,
@@ -14,7 +16,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm<Product>({
     defaultValues: { inventory: { quantity: 1, inStock: true } },
-  }); // Initialize inventory
+  }); 
   const categories = [
     { value: "Camping Gear", label: "Camping Gear" },
     { value: "Camping Furniture", label: "Camping Furniture" },
@@ -51,6 +53,7 @@ const AddProduct = () => {
             showConfirmButton: false,
           });
           reset();
+          navigate("/");
         }
       })
       .catch((error) => {

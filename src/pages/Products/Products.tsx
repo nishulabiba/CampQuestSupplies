@@ -1,22 +1,23 @@
 import { useState, useMemo } from "react";
-import useProducts from "../../hooks/useProducts";
 import CardComponent from "../../Shared/CardComponent";
 import { Product } from "../../types/Types";
 import BestProduct from "../Home/BestSelling/BestProduct";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useGetProductsQuery } from "../../redux/api/api";
 
 const Products = () => {
-  const { products, isLoading } = useProducts();
+  const { data, isLoading } = useGetProductsQuery();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const navigate = useNavigate();
-
+  const products: Product[] = data?.data;
   const filteredProducts = useMemo(() => {
-    let filtered = products;
+    let filtered = Array.isArray(products) ? products : [];
 
     if (searchTerm) {
       filtered = filtered.filter(
@@ -32,15 +33,15 @@ const Products = () => {
       );
     }
 
-    filtered = filtered?.filter(
+    filtered = filtered.filter(
       (product: Product) =>
         product.price >= priceRange[0] && product.price <= priceRange[1]
     );
 
     if (sortOrder === "asc") {
-      filtered = filtered?.sort((a: Product, b: Product) => a.price - b.price);
+      filtered = filtered.sort((a: Product, b: Product) => a.price - b.price);
     } else {
-      filtered = filtered?.sort((a: Product, b: Product) => b.price - a.price);
+      filtered = filtered.sort((a: Product, b: Product) => b.price - a.price);
     }
 
     return filtered;
@@ -55,7 +56,7 @@ const Products = () => {
 
   return (
     <div className="container mx-auto">
-      <Helmet title="Products | CampQuest Spplies" />
+      <Helmet title="Products | CampQuest Supplies" />
       <div className="flex flex-col md:flex-row gap-2 justify-between items-center py-4 text-slate-500">
         <input
           type="text"
@@ -156,7 +157,7 @@ const Products = () => {
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-3 justify-items-center gap-2 md:gap-4">
           {filteredProducts?.map((item: Product) => (
-            <div key={item._id} className=" -my-20 md:my-0">
+            <div key={item._id} className="-my-20 md:my-0">
               <CardComponent item={item} />
             </div>
           ))}

@@ -8,6 +8,9 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import AddProduct from "../pages/AddProduct/AddProduct";
 import Update from "../pages/Update";
 import Cart from "../pages/Cart/Cart";
+import Favorites from "../pages/Favorites/Favorites";
+import Checkout from "../pages/CheckOut/Checkout";
+import Payment from "../pages/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +48,19 @@ const router = createBrowserRouter([
             {
                 path: "/cart",
                 element: <Cart/>
+            },
+            {
+                path: "/favourites",
+                element: <Favorites/>
+
+            },
+            {
+                path: "/cart/checkout",
+                element: <Checkout/>
+
+            },{
+                path: "/stripe-payment",
+                element: <Payment/>
             }
         ]
     }
