@@ -47,8 +47,6 @@ export type Product = {
     paymentMethod: "cod" | "stripe";
   }
   export interface CartContextType {
-    user: CheckoutFormValues;
-    setUser: React.Dispatch<React.SetStateAction<CheckoutFormValues>>;
     cartItems: CartItem[];
     setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
     favoriteItems: FavoriteItem[];

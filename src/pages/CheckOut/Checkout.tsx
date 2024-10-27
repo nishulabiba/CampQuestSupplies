@@ -14,15 +14,11 @@ const Checkout = () => {
     formState: { errors },
   } = useForm<CheckoutFormValues>();
   const navigate = useNavigate();
-  const {setCartItems, setUser}= useCart()
+  const {setCartItems}= useCart()
 
   const onSubmit: SubmitHandler<CheckoutFormValues> = (data) => {
-    setUser(data)
+  
     if (data.paymentMethod === "cod") {
-      const order = {
-        
-      }
-
       Swal.fire(
         "Order Placed",
         "Your order has been placed successfully!",

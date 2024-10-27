@@ -15,7 +15,7 @@ const Products = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const navigate = useNavigate();
-  const products: Product[] = data?.data;
+  const products: Product[] | undefined = data?.data;
   const filteredProducts = useMemo(() => {
     let filtered = Array.isArray(products) ? products : [];
 

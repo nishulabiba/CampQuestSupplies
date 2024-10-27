@@ -12,16 +12,19 @@ const Payment = () => {
     const { cartProducts, calculateTotalPrice} = useCart()
     const prod = cartProducts()
     const total = calculateTotalPrice()
-    const price = parseFloat(total.toFixed(2))
+    const price: number = parseFloat(total.toFixed(2))
     const publishable_key = import.meta.env.VITE_publishable_key ;
     const stripePromise= loadStripe(publishable_key)
+    
     return (
         <div className="w-full mx-auto">
         <Helmet title="CampQuest | Payment" />
             <Title heading='Payment' subHeading='Please, process'></Title>
 
             <Elements stripe={stripePromise}>
-                <CheckoutForm cart={prod}  price={price} />
+                {
+                prod? <CheckoutForm prod={prod}  price={price} />:""
+                }
             </Elements>
         </div>
         

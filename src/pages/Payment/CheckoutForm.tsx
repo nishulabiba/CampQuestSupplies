@@ -1,24 +1,24 @@
 import { CardElement, useStripe } from "@stripe/react-stripe-js";
-import { Link } from "react-router-dom";
 
 
-const CheckoutForm = ({ price, cart }) => {
+const CheckoutForm = ({ price, prod }: { price: number; prod: unknown[] } ) => {
+    const stripe = useStripe();
     
-    
-    const stripe = useStripe()
 
-const handleSubmit = (event: any)=>{
-   console.log(event);
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        console.log(event);
 
-
-
-
-}
+        console.log(event.target);
+    };
 
     return (
         <div>
             <form className="w-2/3 mx-auto" onSubmit={handleSubmit}>
-                <CardElement className=" bg-slate-100 h-8 pt-2 shadow-2xl rounded-lg"
+            <p className="">{price}</p>
+            <p className="">{prod?.length}</p>
+                <CardElement
+                    className="bg-slate-100 h-8 pt-2 shadow-2xl rounded-lg"
                     options={{
                         style: {
                             base: {
@@ -34,17 +34,11 @@ const handleSubmit = (event: any)=>{
                         },
                     }}
                 />
-                <Link to='/' className="btn btn-primary btn-outline mt-4" type="submit" disabled={!stripe}>
+                <button className="btn btn-primary btn-outline mt-4" type="submit" disabled={!stripe}>
                     Pay
-                </Link>
+                </button>
             </form>
-
-            
-
-
-
-
-        </div >
+        </div>
     );
 };
 

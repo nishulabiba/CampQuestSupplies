@@ -2,7 +2,6 @@ import { useState, useEffect, ReactNode, createContext } from "react";
 import {
   CartContextType,
   CartItem,
-  CheckoutFormValues,
   FavoriteItem,
   Product,
 } from "../types/Types";
@@ -13,7 +12,6 @@ export const CartContext = createContext<CartContextType | undefined>(
   undefined
 );
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<CheckoutFormValues>()
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     
     const cartString = localStorage.getItem("cart");
@@ -147,10 +145,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{
-        user,
-        setUser,
-        cartItems,
+      value={{cartItems,
         setCartItems, 
         favoriteItems,
         addToCart,

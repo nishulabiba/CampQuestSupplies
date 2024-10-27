@@ -8,7 +8,7 @@ import { useGetProductsQuery } from "../../redux/api/api";
 const Favorites = () => {
   const { favoriteItems } = useCart();
   const {data} = useGetProductsQuery()
- const products : Product[]= data?.data
+ const products : Product[] | undefined= data?.data
 const favProducts = favoriteItems.map(i=> products?.find( t=> i.id === t._id) )
 console.log(favProducts);
   return (

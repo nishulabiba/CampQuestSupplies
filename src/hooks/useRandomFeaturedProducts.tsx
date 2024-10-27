@@ -5,7 +5,7 @@ import { Product } from '../types/Types';
 const useRandomFeaturedProducts = () => {
   const { data } = useGetProductsQuery()
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const products: Product[] = data?.data;
+  const products: Product[] | undefined = data?.data;
   useEffect(() => {
     // Function to select three random products
     const getRandomProducts = () => {
