@@ -10,19 +10,19 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query<ApiResponse, void>({
       query: () => ({
-        url: "/products",
+        url: "products",
         method: "GET",
       }),
     }),
     getProductById: builder.query<ApiResponse1, string>({
       query: (id) => ({
-        url: `/products/${id}`,
+        url: `products/${id}`,
         method: "GET",
       }),
     }),
     addProduct: builder.mutation<Product, Partial<Product>>({
       query: (newProduct) => ({
-        url: "/products",
+        url: "products",
         method: "POST",
         body: newProduct,
       }),
@@ -32,14 +32,14 @@ export const baseApi = createApi({
       { id: string; data: Partial<Product> }
     >({
       query: ({ id, data }) => ({
-        url: `/products/${id}`,
+        url: `products/${id}`,
         method: "PATCH",
         body: data,
       }),
     }),
     deleteProduct: builder.mutation<{ success: boolean }, string>({
       query: (id) => ({
-        url: `/products/${id}`,
+        url: `products/${id}`,
         method: "DELETE",
       }),
     }),
