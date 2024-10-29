@@ -22,19 +22,19 @@ const router = createBrowserRouter([
                 element: <Home/>
             },
             {
-                path: "/products",
+                path: "products",
                 element: <Products/>
             },
             {
-                path: "/product/:id",
+                path: "product/:id",
                 element: <ProductDetails/>
             },
             {
-                path: "/manage",
+                path: "manage",
                 element: <Management/>
             },
             {
-                path: "/about",
+                path: "about",
                 element: <AboutUs/>
             },
             {
@@ -46,20 +46,20 @@ const router = createBrowserRouter([
                 element: <Update/>
             },
             {
-                path: "/cart",
+                path: "cart",
                 element: <Cart/>
             },
             {
-                path: "/favourites",
+                path: "favourites",
                 element: <Favorites/>
 
             },
             {
-                path: "/cart/checkout",
+                path: "cart/checkout",
                 element: <Checkout/>
 
             },{
-                path: "/stripe-payment",
+                path: "stripe-payment",
                 element: <Payment/>
             }
         ]
