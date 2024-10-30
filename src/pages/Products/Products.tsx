@@ -70,10 +70,16 @@ const Products = () => {
           onChange={(e) => setCategoryFilter(e.target.value)}
           className="border p-2 rounded bg-slate-100"
         >
-          <option value="">All Categories</option>
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          <option value="category3">Category 3</option>
+          <option value="" disabled>All Categories</option>
+          <option value="Camping Gear" >Camping Gear</option>
+          <option value="Camping Furniture" >Camping Furniture</option>
+          <option value="Coolers" >Coolers</option>
+          <option value="Cooking Equipment" >Cooking Equipment</option>
+          <option value="Electronics" >Electronics</option>
+          <option value="Sleeping Gear" >Sleeping Gear</option>
+          <option value="Safety" >Safety</option>
+          <option value="Backpacks" >Backpacks</option>
+          
         </select>
         <div className="flex flex-col md:flex-row items-center text-slate-500 gap-2">
           <label className="mr-2">Price Range:</label>
