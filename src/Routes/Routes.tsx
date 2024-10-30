@@ -11,15 +11,16 @@ import Cart from "../pages/Cart/Cart";
 import Favorites from "../pages/Favorites/Favorites";
 import Checkout from "../pages/CheckOut/Checkout";
 import Payment from "../pages/Payment/Payment";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout/>,
-        
+        errorElement: <ErrorPage/>,
         children: [
             {
-                path: "",
+                path: "/",
                 element: <Home/>
             },
             {
@@ -31,36 +32,37 @@ const router = createBrowserRouter([
                 element: <ProductDetails/>
             },
             {
-                path: "manage",
+                path: "/manage",
                 element: <Management/>
             },
             {
-                path: "about",
+                path: "/about",
                 element: <AboutUs/>
             },
             {
-                path: "add",
+                path: "/add",
                 element: <AddProduct/>
             },
             {
-                path:"update/:id",
+                path:"/update/:id",
                 element: <Update/>
             },
             {
-                path: "cart",
+                path: "/cart",
                 element: <Cart/>
             },
             {
-                path: "favourites",
+                path: "/favourites",
                 element: <Favorites/>
 
             },
             {
-                path: "cart/checkout",
+                path: "/cart/checkout",
                 element: <Checkout/>
 
-            },{
-                path: "stripe-payment",
+            },
+            {
+                path: "/stripe-payment",
                 element: <Payment/>
             }
         ]
